@@ -6,6 +6,7 @@
     <meta viewport="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Proxima+Nova" rel="stylesheet" type="text/css">
     <link href="/vendor/pure/pure-min.css" rel="stylesheet">
+    <link href="/styles/bootstrap.css" rel="stylesheet">
     <link href="/styles/index.css" rel="stylesheet">
   </head>
   <body>
@@ -16,13 +17,36 @@
         </div>
         <div class="pure-u-7-24">
           <div class="search-form">
-            <h1>search form</h1>
+            <div class="row">
+              <div class="col-md-6">
+                <input class="form-control" id="input_buscar" type="text" name="fname" onkeyup="modificar()">
+              </div>
+              <div class="col-md-6">
+                <button class="btn" id="button_buscar" type="button" onclick="buscar()">Buscar!  </button>
+              </div>
+            </div>
           </div>
         </div>
         <div class="pure-u-1-3"></div>
       </header>
-      <aside class="filters pure-u-1-4"></aside>
-      <content class="pure-u-3-4"></content>
+      <aside class="filters pure-u-1-4">
+        <Strong>Categorias</Strong>
+        <ul id="submenu-categories"> </ul>
+        <Strong>Idiomas</Strong>
+        <ul id="submenu-idiomas"> </ul>
+        <Strong>Publicacion</Strong>
+        <ul id="submenu-publicacion"> 
+          <li>Todos</li>
+          <li>Hace una semana</li>
+          <li>Hace un mes</li>
+          <Hace>un año</Hace>
+        </ul>
+        <Strong>Presentacón</Strong>
+        <ul id="submenu-edicion"> </ul>
+      </aside>
+      <content class="pure-u-3-4">
+        <div class="row" id="row-busqueda"></div>
+      </content>
       <footer class="pure-u-1"></footer>
     </div>
     <script src="/vendor/underscore/underscore-min.js"></script>

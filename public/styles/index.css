@@ -4,6 +4,19 @@
 .app {
   max-width: 960px;
   margin: 0 auto;
+  li: a cursor pointer;
+}
+.app .btn {
+  background-color: #ff4d4d;
+  color: #fff;
+  pointer-events: none;
+}
+.app .btn.active {
+  background-color: #0c6;
+  pointer-events: all;
+}
+.app #row-busqueda .col-md-4 {
+  min-height: 410px;
 }
 .search-form {
   margin-top: 30px;

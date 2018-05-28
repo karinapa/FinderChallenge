@@ -1,2 +1,6 @@
 .search-form
-    h1 search form
+    .row
+        .col-md-6
+            input(id="input_buscar" type="text" class="form-control" name="fname"  onkeyup="modificar()")
+        .col-md-6
+            button(id="button_buscar" type="button" class="btn"   onclick="buscar()") Buscar!  
