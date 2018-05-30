@@ -38,9 +38,9 @@ function searchForm() {
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 var myArr = JSON.parse(this.responseText);
-                mostrarCategoria(myArr);
-                mostrarIdiomas(myArr);
-                mostrarEdicion(myArr);
+                mostrarSubmenu(myArr, 'submenu-categories', 'categories');
+                mostrarSubmenu(myArr, 'submenu-idiomas', 'lang');
+                mostrarSubmenu(myArr, 'submenu-edicion', 'edition');
             }
         };
         xmlhttp.open("GET", url, true);
@@ -60,43 +60,82 @@ function searchForm() {
         rowBusqueda.innerHTML = out;
     }
 
-    function mostrarCategoria(arr) {
+    function mostrarSubmenu(arr, id, entitiesType) {
         var out = "";
         var i;
-        var rowBusqueda = document.getElementById('submenu-categories')
+        var rowBusqueda = document.getElementById(id)
         out += '<li><a>Todos</a></li>';
-        for (i = 0; i < arr.entities.categories.length; i++) {
-            console.log(arr.entities.categories.length);
-            out += '<li><a>' + arr.entities.categories[i].label + '</a></li>';
+
+        if (entitiesType = "categories") {
+            for (i = 0; i < arr.entities.categories.length; i++) {
+                console.log(arr.entities.categories.length);
+                out += '<li><a  onclick="filtrarDatos(event)" class="aOption" entitiesType=' + entitiesType + ' entities=' + arr.entities.categories[i].id + ' >' + arr.entities.categories[i].label + '</a></li>';
+            }
+        } else if (entitiesType = "lang") {
+            for (i = 0; i < arr.entities.lang.length; i++) {
+                console.log(arr.entities.lang.length);
+                out += '<li><a onclick="filtrarDatos(event)" class="aOption" entitiesType=' + entitiesType + ' entities=' + arr.entities.lang[i].id + ' >' + arr.entities.lang[i].label + '</a></li>';
+            }
+        } else if (entitiesType = "edition") {
+
+            for (i = 0; i < arr.entities.edition.length; i++) {
+                console.log(arr.entities.edition.length);
+                out += '<li><a onclick="filtrarDatos(event)" class="aOption" entitiesType=' + entitiesType + ' entities=' + arr.entities.edition[i].id + ' >' + arr.entities.edition[i].label + '</a></li>';
+            }
         }
+
         rowBusqueda.innerHTML = out;
     }
 
-    function mostrarIdiomas(arr) {
-        var out = "";
-        var i;
-        out += '<li><a>Todos</li>';
-        var rowIdiomas = document.getElementById('submenu-idiomas')
 
-        for (i = 0; i < arr.entities.lang.length; i++) {
-            console.log(arr.entities.lang.length);
-            out += '<li><a>' + arr.entities.lang[i].label + '</a></li>';
+};
+
+function filtrarDatos(e) {
+    alert(e.target.getAttribute("entities"));
+    var entitiesType = e.target.getAttribute("entitiesType");
+    var entities = e.target.getAttribute("entities");
+
+    var xmlhttp = new XMLHttpRequest();
+    var url = "../../books-schema.json";
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var myArr = JSON.parse(this.responseText);
+
+            var obj = '';
+            if (entitiesType = "categories") {
+                obj = myArr.entities.categories;
+            } else if (entitiesType = "lang") {
+                obj = myArr.entities.lang;
+            } else if (entitiesType = "edition") {
+                obj = myArr.entities.edition;
+            }
+
+            for (i = 0; i < obj; i++) {
+                console.log(obj.length);
+                out += '<li><a onclick="filtrarDatos(event)" class="aOption" entitiesType=' + entitiesType + ' entities=' + arr.entities.edition[i].id + ' >' + arr.entities.edition[i].label + '</a></li>';
+            }
+
         }
-        rowIdiomas.innerHTML = out;
-    }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
 
-    function mostrarEdicion(arr) {
-        var out = "";
-        var i;
-        out += '<li><a>Todos</li>';
-        var rowedicion = document.getElementById('submenu-edicion')
 
-        for (i = 0; i < arr.entities.edition.length; i++) {
-            console.log(arr.entities.edition.length);
-            out += '<li><a>' + arr.entities.edition[i].label + '</a></li>';
+
+
+}
+
+function ajaxRetun() {
+    var xmlhttp = new XMLHttpRequest();
+    var url = "../../books-schema.json";
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var myArr = JSON.parse(this.responseText);
+            return myArr;
         }
-        rowedicion.innerHTML = out;
-
-    }
-
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
 }
