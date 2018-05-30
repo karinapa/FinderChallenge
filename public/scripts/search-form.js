@@ -66,21 +66,21 @@ function searchForm() {
         var rowBusqueda = document.getElementById(id)
         out += '<li><a>Todos</a></li>';
 
-        if (entitiesType = "categories") {
+        if (entitiesType == "categories") {
             for (i = 0; i < arr.entities.categories.length; i++) {
                 console.log(arr.entities.categories.length);
-                out += '<li><a  onclick="filtrarDatos(event)" class="aOption" entitiesType=' + entitiesType + ' entities=' + arr.entities.categories[i].id + ' >' + arr.entities.categories[i].label + '</a></li>';
+                out += '<li><a  onclick="filtrarDatos(event)" class="aOption" entitiesType=' + entitiesType + ' entities=' + arr.entities.categories[i].descripcion + ' >' + arr.entities.categories[i].label + '</a></li>';
             }
-        } else if (entitiesType = "lang") {
+        } else if (entitiesType == "lang") {
             for (i = 0; i < arr.entities.lang.length; i++) {
                 console.log(arr.entities.lang.length);
-                out += '<li><a onclick="filtrarDatos(event)" class="aOption" entitiesType=' + entitiesType + ' entities=' + arr.entities.lang[i].id + ' >' + arr.entities.lang[i].label + '</a></li>';
+                out += '<li><a onclick="filtrarDatos(event)" class="aOption" entitiesType=' + entitiesType + ' entities=' + arr.entities.lang[i].descripcion + ' >' + arr.entities.lang[i].label + '</a></li>';
             }
-        } else if (entitiesType = "edition") {
+        } else if (entitiesType == "edition") {
 
             for (i = 0; i < arr.entities.edition.length; i++) {
                 console.log(arr.entities.edition.length);
-                out += '<li><a onclick="filtrarDatos(event)" class="aOption" entitiesType=' + entitiesType + ' entities=' + arr.entities.edition[i].id + ' >' + arr.entities.edition[i].label + '</a></li>';
+                out += '<li><a onclick="filtrarDatos(event)" class="aOption" entitiesType=' + entitiesType + ' entities=' + arr.entities.edition[i].descripcion + ' >' + arr.entities.edition[i].label + '</a></li>';
             }
         }
 
@@ -91,7 +91,6 @@ function searchForm() {
 };
 
 function filtrarDatos(e) {
-    alert(e.target.getAttribute("entities"));
     var entitiesType = e.target.getAttribute("entitiesType");
     var entities = e.target.getAttribute("entities");
 
@@ -102,20 +101,38 @@ function filtrarDatos(e) {
         if (this.readyState == 4 && this.status == 200) {
             var myArr = JSON.parse(this.responseText);
 
-            var obj = '';
-            if (entitiesType = "categories") {
-                obj = myArr.entities.categories;
-            } else if (entitiesType = "lang") {
-                obj = myArr.entities.lang;
-            } else if (entitiesType = "edition") {
-                obj = myArr.entities.edition;
+            var rowBusqueda = document.getElementById('row-busqueda')
+            var out;
+            var cont = 0;
+
+            for (i = 0; i < myArr.data.length; i++) {
+
+                if (entitiesType == "categories") {
+
+                    if ((myArr.data[i].categories == entities) && cont <= 8) {
+                        out += '<div class="col-md-4"><div><img src=""></div><h3>' + myArr.data[i].title + '</h3><p>' + myArr.data[i].teaser + '</p></div>';
+                        cont++;
+                    }
+                } else if (entitiesType == "lang") {
+
+                    if ((myArr.data[i].lang == entities) && cont <= 8) {
+                        out += '<div class="col-md-4"><div><img src=""></div><h3>' + myArr.data[i].title + '</h3><p>' + myArr.data[i].teaser + '</p></div>';
+                        cont++;
+                    }
+                } else if (entitiesType == "edition") {
+
+                    if ((myArr.data[i].edition == entities) && cont <= 8) {
+                        out += '<div class="col-md-4"><div><img src=""></div><h3>' + myArr.data[i].title + '</h3><p>' + myArr.data[i].teaser + '</p></div>';
+                        cont++;
+                    }
+                }
+
+
             }
 
-            for (i = 0; i < obj; i++) {
-                console.log(obj.length);
-                out += '<li><a onclick="filtrarDatos(event)" class="aOption" entitiesType=' + entitiesType + ' entities=' + arr.entities.edition[i].id + ' >' + arr.entities.edition[i].label + '</a></li>';
-            }
 
+
+            rowBusqueda.innerHTML = out;
         }
     };
     xmlhttp.open("GET", url, true);
