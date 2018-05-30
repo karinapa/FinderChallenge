@@ -74,7 +74,7 @@ function searchForm() {
         } else if (entitiesType == "lang") {
             for (i = 0; i < arr.entities.lang.length; i++) {
                 console.log(arr.entities.lang.length);
-                out += '<li><a onclick="filtrarDatos(event)" class="aOption" entitiesType=' + entitiesType + ' entities=' + arr.entities.lang[i].descripcion + ' >' + arr.entities.lang[i].label + '</a></li>';
+                out += '<li><a onclick="filtrarDatos(event)" class="aOption" entitiesType=' + entitiesType + ' entities=' + arr.entities.lang[i].id + ' >' + arr.entities.lang[i].label + '</a></li>';
             }
         } else if (entitiesType == "edition") {
 
@@ -115,10 +115,13 @@ function filtrarDatos(e) {
                     }
                 } else if (entitiesType == "lang") {
 
-                    if ((myArr.data[i].lang == entities) && cont <= 8) {
+                    if ((myArr.data[i].lang[0] == entities || myArr.data[i].lang[1] == entities) && (cont <= 8)) {
+
                         out += '<div class="col-md-4"><div><img src=""></div><h3>' + myArr.data[i].title + '</h3><p>' + myArr.data[i].teaser + '</p></div>';
                         cont++;
                     }
+
+
                 } else if (entitiesType == "edition") {
 
                     if ((myArr.data[i].edition == entities) && cont <= 8) {
@@ -133,24 +136,6 @@ function filtrarDatos(e) {
 
 
             rowBusqueda.innerHTML = out;
-        }
-    };
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
-
-
-
-
-}
-
-function ajaxRetun() {
-    var xmlhttp = new XMLHttpRequest();
-    var url = "../../books-schema.json";
-
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var myArr = JSON.parse(this.responseText);
-            return myArr;
         }
     };
     xmlhttp.open("GET", url, true);
