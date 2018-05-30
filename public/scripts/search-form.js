@@ -64,7 +64,7 @@ function searchForm() {
         var out = "";
         var i;
         var rowBusqueda = document.getElementById(id)
-        out += '<li><a>Todos</a></li>';
+        out += '<li><a onclick="filtrarDatos(event)" entitiesType=' + entitiesType + '>Todos</a></li>';
 
         if (entitiesType == "categories") {
             for (i = 0; i < arr.entities.categories.length; i++) {
@@ -77,16 +77,13 @@ function searchForm() {
                 out += '<li><a onclick="filtrarDatos(event)" class="aOption" entitiesType=' + entitiesType + ' entities=' + arr.entities.lang[i].id + ' >' + arr.entities.lang[i].label + '</a></li>';
             }
         } else if (entitiesType == "edition") {
-
             for (i = 0; i < arr.entities.edition.length; i++) {
                 console.log(arr.entities.edition.length);
-                out += '<li><a onclick="filtrarDatos(event)" class="aOption" entitiesType=' + entitiesType + ' entities=' + arr.entities.edition[i].descripcion + ' >' + arr.entities.edition[i].label + '</a></li>';
+                out += '<li><a onclick="filtrarDatos(event)" class="aOption" entitiesType=' + entitiesType + ' entities=' + arr.entities.edition[i].id + ' >' + arr.entities.edition[i].label + '</a></li>';
             }
         }
-
         rowBusqueda.innerHTML = out;
     }
-
 
 };
 
@@ -109,25 +106,43 @@ function filtrarDatos(e) {
 
                 if (entitiesType == "categories") {
 
-                    if ((myArr.data[i].categories == entities) && cont <= 8) {
+                    if (entities != null) {
+
+                        if ((myArr.data[i].categories == entities) && cont <= 8) {
+                            out += '<div class="col-md-4"><div><img src=""></div><h3>' + myArr.data[i].title + '</h3><p>' + myArr.data[i].teaser + '</p></div>';
+                            cont++;
+                        }
+
+                    } else {
                         out += '<div class="col-md-4"><div><img src=""></div><h3>' + myArr.data[i].title + '</h3><p>' + myArr.data[i].teaser + '</p></div>';
                         cont++;
                     }
+
+
                 } else if (entitiesType == "lang") {
-
-                    if ((myArr.data[i].lang[0] == entities || myArr.data[i].lang[1] == entities) && (cont <= 8)) {
-
+                    if (entities != null) {
+                        if ((myArr.data[i].lang[0] == entities || myArr.data[i].lang[1] == entities) && (cont <= 8)) {
+                            out += '<div class="col-md-4"><div><img src=""></div><h3>' + myArr.data[i].title + '</h3><p>' + myArr.data[i].teaser + '</p></div>';
+                            cont++;
+                        }
+                    } else {
                         out += '<div class="col-md-4"><div><img src=""></div><h3>' + myArr.data[i].title + '</h3><p>' + myArr.data[i].teaser + '</p></div>';
                         cont++;
                     }
 
 
                 } else if (entitiesType == "edition") {
-
-                    if ((myArr.data[i].edition == entities) && cont <= 8) {
+                    if (entities != null) {
+                        if ((myArr.data[i].mode[0] == entities || myArr.data[i].mode[1] == entities) && (cont <= 8)) {
+                            out += '<div class="col-md-4"><div><img src=""></div><h3>' + myArr.data[i].title + '</h3><p>' + myArr.data[i].teaser + '</p></div>';
+                            cont++;
+                        }
+                    } else {
                         out += '<div class="col-md-4"><div><img src=""></div><h3>' + myArr.data[i].title + '</h3><p>' + myArr.data[i].teaser + '</p></div>';
                         cont++;
+
                     }
+
                 }
 
 
