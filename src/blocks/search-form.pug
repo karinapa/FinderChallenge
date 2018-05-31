@@ -1,6 +1,7 @@
 .search-form
     .row
         .col-md-6
-            input(id="input_buscar" type="text" class="form-control" name="fname"  onkeyup="modificar()")
+            input(id="input_buscar" type="text" class="form-control awesomplete" name="fname"  onkeyup="modificar(event)"
+             data-minchars="3" data-maxitems="7")
         .col-md-6
-            button(id="button_buscar" type="button" class="btn"   onclick="buscar()") Buscar!  
+            button(id="button_buscar" type="button" class="btn btn-white"   onclick="modificar(event,true)") Buscar!  

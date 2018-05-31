@@ -8,6 +8,7 @@
     <link href="/vendor/pure/pure-min.css" rel="stylesheet">
     <link href="/styles/bootstrap.css" rel="stylesheet">
     <link href="/styles/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/awesomplete.css">
   </head>
   <body>
     <div class="app pure-g">
@@ -19,10 +20,10 @@
           <div class="search-form">
             <div class="row">
               <div class="col-md-6">
-                <input class="form-control" id="input_buscar" type="text" name="fname" onkeyup="modificar()">
+                <input class="form-control awesomplete" id="input_buscar" type="text" name="fname" onkeyup="modificar(event)" data-minchars="3" data-maxitems="7">
               </div>
               <div class="col-md-6">
-                <button class="btn" id="button_buscar" type="button" onclick="buscar()">Buscar!  </button>
+                <button class="btn btn-white" id="button_buscar" type="button" onclick="modificar(event,true)">Buscar!  </button>
               </div>
             </div>
           </div>
@@ -30,27 +31,36 @@
         <div class="pure-u-1-3"></div>
       </header>
       <aside class="filters pure-u-1-4">
-        <Strong>Categorias</Strong>
-        <ul id="submenu-categories"> </ul>
-        <Strong>Idiomas</Strong>
-        <ul id="submenu-idiomas"> </ul>
-        <Strong>Publicacion</Strong>
-        <ul id="submenu-publicacion"> 
-          <li>Todos</li>
-          <li>Hace una semana</li>
-          <li>Hace un mes</li>
-          <Hace>un año</Hace>
+        <ul>
+          <li> <a> Categorias</a>
+            <ul id="submenu-categories"></ul>
+          </li>
+          <li> <a>  Idiomas</a>
+            <ul id="submenu-idiomas"> </ul>
+          </li>
+          <li> <a>  Publicacion </a>
+            <ul id="submenu-publicacion"> 
+              <li><a onclick="filtrarDatos(event)" entitiesType="date_pub">Todos</a></li>
+              <li> <a onclick="filtrarDatos(event)" entitiesType="date_pub">Hace una semana</a></li>
+              <li> <a onclick="filtrarDatos(event)" entitiesType="date_pub">Hace un mes</a></li>
+              <li> <a onclick="filtrarDatos(event)" entitiesType="date_pub">Hace un año</a></li>
+            </ul>
+          </li>
+          <li> <a>  Presentacón</a>
+            <ul id="submenu-edicion"> </ul>
+          </li>
         </ul>
-        <Strong>Presentacón</Strong>
-        <ul id="submenu-edicion"> </ul>
       </aside>
       <content class="pure-u-3-4">
-        <div class="row" id="row-busqueda"></div>
+        <div class="col-md-12">
+          <div class="row" id="row-busqueda"></div>
+        </div>
       </content>
       <footer class="pure-u-1"></footer>
     </div>
     <script src="/vendor/underscore/underscore-min.js"></script>
     <script src="/scripts/global.js"></script>
+    <script src="/scripts/awesomplete.js" async></script>
     <script src="/scripts/search-form.js"></script>
     <script src="/scripts/app.js"></script>
   </body>

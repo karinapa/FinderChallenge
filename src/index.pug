@@ -8,6 +8,8 @@ html(lang="es")
         link(href="/vendor/pure/pure-min.css", rel="stylesheet")
         link(href="/styles/bootstrap.css", rel="stylesheet")
         link(href="/styles/index.css", rel="stylesheet")
+        link(rel="stylesheet" href="/styles/awesomplete.css")
+      
 
     body
         .app.pure-g
@@ -18,20 +20,30 @@ html(lang="es")
                     include blocks/search-form
                 .pure-u-1-3
             aside.filters.pure-u-1-4
-                Strong Categorias
-                ul#submenu-categories 
-                Strong Idiomas
-                ul#submenu-idiomas 
-                Strong Publicacion
-                ul#submenu-publicacion 
-                    li Todos
-                    li Hace una semana
-                    li Hace un mes
-                    Hace un año
-                Strong Presentacón
-                ul#submenu-edicion 
+                ul
+                    li  
+                        a  Categorias
+                        ul#submenu-categories
+                    li  
+                        a   Idiomas
+                        ul#submenu-idiomas 
+                    li  
+                        a   Publicacion 
+                        ul#submenu-publicacion 
+                            li
+                                a(onclick='filtrarDatos(event)' entitiesType="date_pub") Todos
+                            li 
+                                a(onclick='filtrarDatos(event)' entitiesType="date_pub") Hace una semana
+                            li 
+                                a(onclick='filtrarDatos(event)' entitiesType="date_pub") Hace un mes
+                            li 
+                                a(onclick='filtrarDatos(event)' entitiesType="date_pub") Hace un año
+                    li 
+                        a   Presentacón
+                        ul#submenu-edicion 
             content.pure-u-3-4
-                .row#row-busqueda
+                .col-md-12
+                    .row#row-busqueda
                     
             footer.pure-u-1
 
@@ -40,5 +52,7 @@ html(lang="es")
 
         //- app scripts self
         script(src="/scripts/global.js")
+        script(src="/scripts/awesomplete.js" async)
         script(src="/scripts/search-form.js")
         script(src="/scripts/app.js")
+        
